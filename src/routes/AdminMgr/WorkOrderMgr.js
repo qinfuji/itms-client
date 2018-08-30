@@ -144,7 +144,7 @@ export default class WorkOrderMgr extends PureComponent {
         <Row gutter={{ md: 8, lg: 24, xl: 48 }}>
           <Col md={4} sm={24}>
             <FormItem label="工单号">
-              {getFieldDecorator('no')(<Input placeholder="请输入" />)}
+              {getFieldDecorator('ordrNo')(<Input placeholder="请输入" />)}
             </FormItem>
           </Col>
           <Col md={4} sm={24}>
@@ -232,6 +232,7 @@ export default class WorkOrderMgr extends PureComponent {
       workorders: { data },
       loading,
     } = this.props;
+    console.log('--->render', data);
     const { selectedRows, modalVisible } = this.state;
 
     const columns = [

@@ -37,3 +37,10 @@ export async function queryWorkOrder(params) {
   let id = params.id;
   return request('/api/workorder/' + id);
 }
+
+export async function fakeAccountLogin(params) {
+  return request('/api/login/account', {
+    method: 'POST',
+    body: params,
+  });
+}

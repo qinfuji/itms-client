@@ -1,6 +1,6 @@
 import { routerRedux } from 'dva/router';
 import { message } from 'antd';
-import { fakeSubmitForm } from '../services/api';
+import { fakeSubmitForm, fetchWorkOrders } from '../services/api';
 
 export default {
   namespace: 'workorders',
@@ -18,7 +18,7 @@ export default {
     },
 
     *fetchWorkOrders({ payload, callback }, { call, put }) {
-      const response = yield call(fetchWorkOrders, payloda);
+      const response = yield call(fetchWorkOrders, payload);
       yield put({
         type: 'list',
         payload: response,
@@ -30,7 +30,12 @@ export default {
   },
 
   reducers: {
-    save(state, action) {},
+    save(state, action) {
+      return {
+        ...state,
+        data: action.payload,
+      };
+    },
     list(state, action) {},
   },
 };

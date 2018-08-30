@@ -50,7 +50,7 @@ export default class LoginPage extends Component {
     const { type, autoLogin } = this.state;
     return (
       <div className={styles.main}>
-        <Login defaultActiveKey={type} onTabChange={this.onTabChange} onSubmit={this.handleSubmit}>
+        <Login defaultActiveKey={type} onSubmit={this.handleSubmit}>
           {login.status === 'error' &&
             login.type === 'account' &&
             !submitting &&

@@ -6,6 +6,5 @@ export function getAuthority() {
 }
 
 export function setAuthority(authority) {
-  console.log('--->setAuthority', authority);
   return localStorage.setItem('itms-authority', authority);
 }

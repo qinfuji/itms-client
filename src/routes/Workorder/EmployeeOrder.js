@@ -233,7 +233,7 @@ export default class EmployeeOrder extends PureComponent {
                   {getFieldDecorator('offlicTel', {})(<Input />)}
                 </Form.Item>
               </Col>
-              {
+              {/*
                 <Col span={12}>
                   <Form.Item
                     label={fieldLabels.officePosition}
@@ -254,7 +254,7 @@ export default class EmployeeOrder extends PureComponent {
                     )}
                   </Form.Item>
                 </Col>
-              }
+                  */}
             </Row>
             <Row gutter={10}>
               <Col span={8}>
