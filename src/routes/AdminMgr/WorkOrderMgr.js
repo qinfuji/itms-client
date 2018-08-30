@@ -75,9 +75,9 @@ export default class WorkOrderMgr extends PureComponent {
 
   componentDidMount() {
     const { dispatch } = this.props;
-    // dispatch({
-    //   type: 'workorders/fetchWorkOrders',
-    // });
+    dispatch({
+      type: 'workorders/fetchWorkOrders',
+    });
   }
 
   handleStandardTableChange = (pagination, filtersArg, sorter) => {
@@ -140,34 +140,34 @@ export default class WorkOrderMgr extends PureComponent {
     const { form } = this.props;
     const { getFieldDecorator } = form;
     return (
-      <Form onSubmit={this.handleSearch} layout="inline">
-        <Row gutter={{ md: 8, lg: 24, xl: 48 }}>
-          <Col md={4} sm={24}>
+      <Form onSubmit={this.handleSearch}>
+        <Row gutter={10}>
+          <Col span={5}>
             <FormItem label="工单号">
               {getFieldDecorator('ordrNo')(<Input placeholder="请输入" />)}
             </FormItem>
           </Col>
-          <Col md={4} sm={24}>
+          <Col span={5}>
             <FormItem label="工单类型">
               {getFieldDecorator('status')(
-                <Select placeholder="请选择" style={{ width: '100%' }}>
+                <Select placeholder="请选择">
                   <Option value="0">关闭</Option>
                   <Option value="1">运行中</Option>
                 </Select>
               )}
             </FormItem>
           </Col>
-          <Col md={4} sm={24}>
+          <Col span={5}>
             <FormItem label="关键信息">
               {getFieldDecorator('status')(
-                <Select placeholder="请选择" style={{ width: '100%' }}>
+                <Select placeholder="请选择">
                   <Option value="0">关闭</Option>
                   <Option value="1">运行中</Option>
                 </Select>
               )}
             </FormItem>
           </Col>
-          <Col md={4} sm={24}>
+          <Col span={5}>
             <FormItem label="紧急程度">
               {getFieldDecorator('status')(
                 <Select placeholder="请选择" style={{ width: '100%' }}>
@@ -177,22 +177,19 @@ export default class WorkOrderMgr extends PureComponent {
               )}
             </FormItem>
           </Col>
-          <Col md={4} sm={24}>
-            <FormItem label="升序">{getFieldDecorator('queryDesc')(<Checkbox />)}</FormItem>
-          </Col>
         </Row>
-        <Row gutter={{ md: 8, lg: 24, xl: 48 }}>
-          <Col md={4} sm={24}>
+        <Row gutter={10}>
+          <Col span={5}>
             <FormItem label="建立者">
               {getFieldDecorator('status')(
-                <Select placeholder="请选择" style={{ width: '100%' }}>
+                <Select placeholder="请选择">
                   <Option value="0">关闭</Option>
                   <Option value="1">运行中</Option>
                 </Select>
               )}
             </FormItem>
           </Col>
-          <Col md={4} sm={24}>
+          <Col span={5}>
             <FormItem label="建立时间">
               {getFieldDecorator('status')(
                 <Select placeholder="请选择" style={{ width: '100%' }}>
@@ -202,7 +199,7 @@ export default class WorkOrderMgr extends PureComponent {
               )}
             </FormItem>
           </Col>
-          <Col md={4} sm={24}>
+          <Col span={5}>
             <FormItem label="临时角色">
               {getFieldDecorator('status')(
                 <Select placeholder="请选择" style={{ width: '100%' }}>
@@ -212,7 +209,10 @@ export default class WorkOrderMgr extends PureComponent {
               )}
             </FormItem>
           </Col>
-          <Col md={4} sm={24}>
+          <Col span={2}>
+            <FormItem label="升序">{getFieldDecorator('queryDesc')(<Checkbox />)}</FormItem>
+          </Col>
+          <Col span={5}>
             <span className={styles.submitButtons}>
               <Button type="primary" htmlType="submit">
                 查询
@@ -223,6 +223,7 @@ export default class WorkOrderMgr extends PureComponent {
             </span>
           </Col>
         </Row>
+        <Row gutter={{ md: 8, lg: 24, xl: 48 }} />
       </Form>
     );
   }
@@ -232,34 +233,35 @@ export default class WorkOrderMgr extends PureComponent {
       workorders: { data },
       loading,
     } = this.props;
-    console.log('--->render', data);
     const { selectedRows, modalVisible } = this.state;
 
     const columns = [
       {
         title: '紧急程度',
         dataIndex: 'urgencyType',
-        sorter: true,
+        //sorter: true,
+        render: val => <span>{val.name}</span>,
       },
       {
         title: '工单号',
-        dataIndex: 'no',
+        dataIndex: 'orderNo',
       },
       {
         title: '工单大类',
         dataIndex: 'category',
-        sorter: true,
-        align: 'right',
+        align: 'left',
+        render: val => <span>{val.name}</span>,
       },
       {
         title: '工单类型',
         dataIndex: 'type',
+        render: val => <span>{val.name}</span>,
       },
-      {
-        title: '更新时间',
-        dataIndex: 'updatedAt',
-        sorter: true,
-      },
+      // {
+      //   title: '更新时间',
+      //   dataIndex: 'updateTime',
+      //   sorter: true,
+      // },
       {
         title: '工单说明',
         dataIndex: 'desc',
@@ -267,7 +269,8 @@ export default class WorkOrderMgr extends PureComponent {
       {
         title: '工单状态',
         dataIndex: 'status',
-        sorter: true,
+        //sorter: true,
+        render: val => <span>{val.name}</span>,
       },
       {
         title: '建立者',
@@ -275,8 +278,8 @@ export default class WorkOrderMgr extends PureComponent {
       },
       {
         title: '建立时间',
-        dataIndex: 'createAt',
-        sorter: true,
+        dataIndex: 'createTime',
+        //sorter: true,
       },
       {
         title: '业务操作',
@@ -285,13 +288,6 @@ export default class WorkOrderMgr extends PureComponent {
         title: '工单操作',
       },
     ];
-
-    const menu = (
-      <Menu onClick={this.handleMenuClick} selectedKeys={[]}>
-        <Menu.Item key="remove">删除</Menu.Item>
-        <Menu.Item key="approval">批量审批</Menu.Item>
-      </Menu>
-    );
 
     const parentMethods = {
       handleAdd: this.handleAdd,
@@ -328,6 +324,7 @@ export default class WorkOrderMgr extends PureComponent {
               columns={columns}
               onSelectRow={this.handleSelectRows}
               onChange={this.handleStandardTableChange}
+              expandedRowRender={record => <p style={{ margin: 0 }}>ssssssss</p>}
             />
           </div>
         </Card>

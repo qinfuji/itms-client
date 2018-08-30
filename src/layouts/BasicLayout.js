@@ -229,7 +229,6 @@ export default class BasicLayout extends React.PureComponent {
           menuData={getMenuData()}
           collapsed={collapsed}
           location={location}
-          isMobile={mb}
           onCollapse={this.handleMenuCollapse}
         />
         <Layout>
@@ -266,32 +265,6 @@ export default class BasicLayout extends React.PureComponent {
               <Route render={NotFound} />
             </Switch>
           </Content>
-          {/*<Footer style={{ padding: 0 }}>
-            <GlobalFooter
-              links={[
-                {
-                  key: '运维工单管理系统 首页',
-                  title: '运维工单管理系统 首页',
-                  blankTarget: true,
-                },
-                {
-                  key: 'github',
-                  title: <Icon type="github" />,
-                  blankTarget: true,
-                },
-                {
-                  key: 'ITMS',
-                  title: 'ITMS',
-                  blankTarget: true,
-                },
-              ]}
-              copyright={
-                <Fragment>
-                  Copyright <Icon type="copyright" /> 2018 XXXXXXX技术部出品
-                </Fragment>
-              }
-            />
-          </Footer>*/}
         </Layout>
       </Layout>
     );

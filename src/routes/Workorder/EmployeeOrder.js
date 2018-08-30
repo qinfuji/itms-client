@@ -65,8 +65,8 @@ const fieldLabels = {
 };
 
 const formItemLayout = {
-  labelCol: { span: 11 },
-  wrapperCol: { span: 13 },
+  labelCol: { span: 7 },
+  wrapperCol: { span: 17 },
 };
 
 function fromItemLayout(overLayout) {
@@ -164,14 +164,14 @@ export default class EmployeeOrder extends PureComponent {
         <Card>
           <Form>
             <Row gutter={10}>
-              <Col span={4}>
+              <Col span={6}>
                 <Form.Item label={fieldLabels.name} {...fromItemLayout()}>
                   {getFieldDecorator('name', {
                     rules: [{ required: true, message: '请填写姓名' }],
                   })(<Input placeholder="请填写姓名" />)}
                 </Form.Item>
               </Col>
-              <Col span={4}>
+              <Col span={6}>
                 <Form.Item label={fieldLabels.department} {...fromItemLayout()}>
                   {getFieldDecorator('department', {
                     rules: [{ required: true, message: '请选择部门' }],
@@ -184,14 +184,14 @@ export default class EmployeeOrder extends PureComponent {
                   )}
                 </Form.Item>
               </Col>
-              <Col span={4}>
+              <Col span={6}>
                 <Form.Item label={fieldLabels.contactTelphone} {...fromItemLayout()}>
                   {getFieldDecorator('contactTelphone', {
                     rules: [{ required: true, message: '请填写联系电话' }],
                   })(<Input placeholder="联系电话" />)}
                 </Form.Item>
               </Col>
-              <Col span={4}>
+              <Col span={6}>
                 <Form.Item label={fieldLabels.sex} {...fromItemLayout()}>
                   {getFieldDecorator('sex', { initialValue: 'man' })(
                     <Select>
@@ -201,7 +201,7 @@ export default class EmployeeOrder extends PureComponent {
                   )}
                 </Form.Item>
               </Col>
-              <Col span={4}>
+              <Col span={6}>
                 <Form.Item label={fieldLabels.nationality} {...fromItemLayout()}>
                   {getFieldDecorator('nationality', { initialValue: 'man' })(
                     <Select>
@@ -211,28 +211,51 @@ export default class EmployeeOrder extends PureComponent {
                   )}
                 </Form.Item>
               </Col>
-              <Col span={4}>
+              <Col span={6}>
                 <Form.Item label={fieldLabels.politicalStatus} {...fromItemLayout()}>
                   {getFieldDecorator('politicalStatus', {})(<Input placeholder="政治面貌" />)}
                 </Form.Item>
               </Col>
-            </Row>
-            <Row gutter={10}>
-              <Col span={4}>
+              <Col span={6}>
                 <Form.Item label={fieldLabels.trustNo} {...fromItemLayout()}>
                   {getFieldDecorator('trustNo', {})(<Input />)}
                 </Form.Item>
               </Col>
-              <Col span={4}>
+              <Col span={6}>
                 <Form.Item label={fieldLabels.mobile} {...fromItemLayout()}>
                   {getFieldDecorator('mobile', {})(<Input />)}
                 </Form.Item>
               </Col>
-              <Col span={4}>
+              <Col span={6}>
                 <Form.Item label={fieldLabels.offlicTel} {...fromItemLayout()}>
                   {getFieldDecorator('offlicTel', {})(<Input />)}
                 </Form.Item>
               </Col>
+              <Col span={6}>
+                <Form.Item label={fieldLabels.innerEmail} {...fromItemLayout()}>
+                  {getFieldDecorator('innerEmail', {})(<Input style={{ width: '100%' }} />)}
+                </Form.Item>
+              </Col>
+              <Col span={6}>
+                <Form.Item label={fieldLabels.outerEmail} {...fromItemLayout()}>
+                  {getFieldDecorator('outerEmail', {})(<Input />)}
+                </Form.Item>
+              </Col>
+              <Col span={6}>
+                <Form.Item label={fieldLabels.attachment} {...fromItemLayout()}>
+                  {getFieldDecorator('attachment', {})(
+                    <Upload {...uploadProps}>
+                      <Button>
+                        <Icon type="upload" /> 选择文件
+                      </Button>
+                      <label style={{ marginLeft: '10px' }} />
+                      <label>注:只支持PDF格式</label>
+                    </Upload>
+                  )}
+                </Form.Item>
+              </Col>
+            </Row>
+            <Row gutter={10}>
               {/*
                 <Col span={12}>
                   <Form.Item
@@ -256,44 +279,12 @@ export default class EmployeeOrder extends PureComponent {
                 </Col>
                   */}
             </Row>
-            <Row gutter={10}>
-              <Col span={8}>
-                <Form.Item
-                  label={fieldLabels.innerEmail}
-                  {...fromItemLayout({ labelCol: { span: 5 }, wrapperCol: { span: 19 } })}
-                >
-                  {getFieldDecorator('innerEmail', {})(<Input style={{ width: '100%' }} />)}
-                </Form.Item>
-              </Col>
-              <Col span={8}>
-                <Form.Item
-                  label={fieldLabels.outerEmail}
-                  {...fromItemLayout({ labelCol: { span: 5 }, wrapperCol: { span: 19 } })}
-                >
-                  {getFieldDecorator('outerEmail', {})(<Input />)}
-                </Form.Item>
-              </Col>
-              <Col span={8}>
-                <Form.Item
-                  label={fieldLabels.attachment}
-                  {...fromItemLayout({ labelCol: { span: 5 }, wrapperCol: { span: 19 } })}
-                >
-                  {getFieldDecorator('attachment', {})(
-                    <Upload {...uploadProps}>
-                      <Button>
-                        <Icon type="upload" /> 选择文件
-                      </Button>
-                      <label style={{ marginLeft: '10px' }}>注:只支持PDF格式</label>
-                    </Upload>
-                  )}
-                </Form.Item>
-              </Col>
-            </Row>
+            <Row gutter={10} />
             <Row gutter={10}>
               <Col span={12}>
                 <Form.Item
                   label={fieldLabels.userDesc}
-                  {...fromItemLayout({ labelCol: { span: 3 }, wrapperCol: { span: 21 } })}
+                  {...fromItemLayout({ labelCol: { span: 4 }, wrapperCol: { span: 20 } })}
                 >
                   {getFieldDecorator('userDesc', {})(<TextArea row={2} />)}
                 </Form.Item>
@@ -301,7 +292,7 @@ export default class EmployeeOrder extends PureComponent {
               <Col span={12}>
                 <Form.Item
                   label={fieldLabels.remarks}
-                  {...fromItemLayout({ labelCol: { span: 3 }, wrapperCol: { span: 21 } })}
+                  {...fromItemLayout({ labelCol: { span: 4 }, wrapperCol: { span: 20 } })}
                 >
                   {getFieldDecorator('remarks', {})(<TextArea row={2} />)}
                 </Form.Item>

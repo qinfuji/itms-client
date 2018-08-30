@@ -71,6 +71,7 @@ class StandardTable extends PureComponent {
       loading,
       columns,
       rowKey,
+      expandedRowRender,
     } = this.props;
 
     const paginationProps = {
@@ -89,37 +90,17 @@ class StandardTable extends PureComponent {
 
     return (
       <div className={styles.standardTable}>
-        <div className={styles.tableAlert}>
-          <Alert
-            message={
-              <Fragment>
-                已选择 <a style={{ fontWeight: 600 }}>{selectedRowKeys.length}</a> 项&nbsp;&nbsp;
-                {needTotalList.map(item => (
-                  <span style={{ marginLeft: 8 }} key={item.dataIndex}>
-                    {item.title}
-                    总计&nbsp;
-                    <span style={{ fontWeight: 600 }}>
-                      {item.render ? item.render(item.total) : item.total}
-                    </span>
-                  </span>
-                ))}
-                <a onClick={this.cleanSelectedKeys} style={{ marginLeft: 24 }}>
-                  清空
-                </a>
-              </Fragment>
-            }
-            type="info"
-            showIcon
-          />
-        </div>
         <Table
           loading={loading}
           rowKey={rowKey || 'key'}
-          rowSelection={rowSelection}
+          //rowSelection={rowSelection}
+          size="middle"
+          bordered
           dataSource={list}
           columns={columns}
           pagination={paginationProps}
           onChange={this.handleTableChange}
+          expandedRowRender={expandedRowRender}
         />
       </div>
     );

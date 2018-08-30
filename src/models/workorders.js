@@ -1,6 +1,6 @@
 import { routerRedux } from 'dva/router';
 import { message } from 'antd';
-import { fakeSubmitForm, fetchWorkOrders } from '../services/api';
+import { fetchWorkOrders } from '../services/api';
 
 export default {
   namespace: 'workorders',
@@ -36,6 +36,11 @@ export default {
         data: action.payload,
       };
     },
-    list(state, action) {},
+    list(state, action) {
+      return {
+        ...state,
+        data: action.payload,
+      };
+    },
   },
 };

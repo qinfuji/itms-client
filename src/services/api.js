@@ -16,12 +16,7 @@ import request from '../utils/request';
 // }
 
 export async function fetchWorkOrders(params) {
-  return request('/api/workorders', {
-    method: 'POST',
-    body: {
-      ...params,
-    },
-  });
+  return request('/api/workorders/query');
 }
 
 export async function createWorkOrder(params) {
