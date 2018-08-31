@@ -108,6 +108,12 @@ export default class WorkOrderMgr extends PureComponent {
     });
   };
 
+  handCreate = () => {
+    let { history } = this.props;
+    console.log(this.props);
+    history.push('/workOrderMgr/create');
+  };
+
   handleSelectRows = rows => {
     this.setState({
       selectedRows: rows,
@@ -292,7 +298,7 @@ export default class WorkOrderMgr extends PureComponent {
         title: '业务操作',
       },
       {
-        title: '工单操作',
+        title: '工单类操作',
       },
     ];
 
@@ -317,7 +323,9 @@ export default class WorkOrderMgr extends PureComponent {
                   <Button>挂起</Button>
                 </Col>
                 <Col span={12}>
-                  <Button type="primary">新建工单</Button>
+                  <Button type="primary" onClick={this.handCreate}>
+                    新建工单
+                  </Button>
                   <Button>导出工单</Button>
                   <Button>打印</Button>
                   <Button>打印全部</Button>

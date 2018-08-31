@@ -13,8 +13,8 @@ const menuData = [
       },
     ],
   },
-  {
-    name: '工单管理',
+  /*{
+    name: '创建工单',
     icon: 'table',
     path: 'workOrderMgr',
     children: [
@@ -24,7 +24,7 @@ const menuData = [
         authority: 'employ',
       },
     ],
-  },
+  },*/
 
   {
     name: '任务管理',

@@ -126,6 +126,12 @@ export const getRouterData = app => {
       component: dynamicWrapper(app, ['login'], () => import('../routes/User/Login')),
     },
 
+    '/workOrderMgr/create': {
+      component: dynamicWrapper(app, [], () =>
+        import('../routes/Workorder/WorkerOrderCreateLaLayout')
+      ),
+    },
+
     '/workOrderMgr/employ': {
       component: dynamicWrapper(app, ['workorders'], () =>
         import('../routes/Workorder/EmployeeOrder')

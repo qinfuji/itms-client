@@ -131,7 +131,7 @@ export default class BasicLayout extends React.PureComponent {
   getPageTitle() {
     const { routerData, location } = this.props;
     const { pathname } = location;
-    let title = 'Ant Design Pro';
+    let title = '运维工单管理系统';
     let currRouterData = null;
     // match params path
     for (const key in routerData) {
@@ -141,7 +141,7 @@ export default class BasicLayout extends React.PureComponent {
       }
     }
     if (currRouterData && currRouterData.name) {
-      title = `${currRouterData.name} - Ant Design Pro`;
+      title = `${currRouterData.name} - 运维工单管理系统`;
     }
     return title;
   }
@@ -246,7 +246,7 @@ export default class BasicLayout extends React.PureComponent {
               onNoticeVisibleChange={this.handleNoticeVisibleChange}
             />
           </Header>
-          <Content style={{ margin: '24px 24px 0', height: '100%' }}>
+          <Content style={{ height: '100%' }}>
             <Switch>
               {redirectData.map(item => (
                 <Redirect key={item.from} exact from={item.from} to={item.to} />

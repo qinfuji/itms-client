@@ -37,7 +37,11 @@ const workorders = [
     status: { id: 1, name: '完成' },
     createUser: '张三',
     createTime: '2017-01-01 00:00:00',
-    tasks: [{ id: 1, status: { id: 1, name: '完成' }, spendTime: 2, order: 1, type: 'telphone' }],
+    taskStatus: [
+      { id: 1, status: { id: 1, name: '完成' }, spendTime: 2, order: 1, type: 'telphone' },
+      { id: 1, status: { id: 1, name: '完成' }, spendTime: 2, order: 1, type: 'device' },
+    ],
+    tasks: [{ id: 1, title: '' }],
   },
 ];
 
