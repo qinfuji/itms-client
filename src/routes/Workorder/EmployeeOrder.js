@@ -161,7 +161,7 @@ export default class EmployeeOrder extends PureComponent {
             </Col>
           </Row>
         </Form>
-        <Card>
+        <Card bodyStyle={{ padding: '8px' }}>
           <Form>
             <Row gutter={10}>
               <Col span={6}>

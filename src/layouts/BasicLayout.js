@@ -232,7 +232,7 @@ export default class BasicLayout extends React.PureComponent {
           onCollapse={this.handleMenuCollapse}
         />
         <Layout>
-          <Header style={{ padding: 0 }}>
+          <Header style={{ padding: 0, height: 52 }}>
             <GlobalHeader
               logo={logo}
               currentUser={currentUser}

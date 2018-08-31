@@ -1,5 +1,6 @@
 import React, { PureComponent, Fragment } from 'react';
 import { connect } from 'dva';
+import classnames from 'classnames';
 import moment from 'moment';
 import {
   Row,
@@ -16,10 +17,10 @@ import {
   InputNumber,
   DatePicker,
   Modal,
-  message,
-  Badge,
-  Divider,
+  TreeSelect,
 } from 'antd';
+
+const { RangePicker } = DatePicker;
 const ButtonGroup = Button.Group;
 import StandardTable from 'components/StandardTable';
 import PageHeaderLayout from '../../layouts/PageHeaderLayout';
@@ -60,8 +61,9 @@ const CreateForm = Form.create()(props => {
   );
 });
 
-@connect(({ loading, workorders }) => ({
+@connect(({ loading, workorders, user }) => ({
   workorders,
+  user,
   loading: loading.models.workorders,
 }))
 @Form.create()
@@ -114,30 +116,44 @@ export default class WorkOrderMgr extends PureComponent {
 
   handleSearch = e => {
     e.preventDefault();
-
     const { dispatch, form } = this.props;
-
     form.validateFields((err, fieldsValue) => {
       if (err) return;
-
       const values = {
         ...fieldsValue,
-        updatedAt: fieldsValue.updatedAt && fieldsValue.updatedAt.valueOf(),
+        startTime:
+          fieldsValue.createTimeRange && fieldsValue.createTimeRange[0].format('YYYY-MM-DD'),
+        endTime: fieldsValue.createTimeRange && fieldsValue.createTimeRange[1].format('YYYY-MM-DD'),
       };
-
+      console.log(values);
       this.setState({
         formValues: values,
       });
-
       dispatch({
-        type: 'rule/fetch',
+        type: 'workorders/fetchWorkOrders',
         payload: values,
       });
     });
   };
 
+  handleFormReset = () => {
+    const { form, dispatch } = this.props;
+    form.resetFields();
+    this.setState({
+      formValues: {},
+    });
+    dispatch({
+      type: 'workorders/fetchWorkOrders',
+      payload: {},
+    });
+  };
+
   renderQueryForm() {
-    const { form } = this.props;
+    const {
+      form,
+      workorders: { categories, urgencyTypes, userRoles },
+      user: { currentUser },
+    } = this.props;
     const { getFieldDecorator } = form;
     return (
       <Form onSubmit={this.handleSearch}>
@@ -147,32 +163,34 @@ export default class WorkOrderMgr extends PureComponent {
               {getFieldDecorator('ordrNo')(<Input placeholder="请输入" />)}
             </FormItem>
           </Col>
-          <Col span={5}>
+          <Col span={6}>
             <FormItem label="工单类型">
-              {getFieldDecorator('status')(
-                <Select placeholder="请选择">
-                  <Option value="0">关闭</Option>
-                  <Option value="1">运行中</Option>
-                </Select>
+              {getFieldDecorator('category')(
+                <TreeSelect
+                  dropdownStyle={{ maxHeight: 400, overflow: 'auto' }}
+                  placeholder="请选择"
+                  treeData={categories}
+                  treeDefaultExpandAll
+                />
               )}
             </FormItem>
           </Col>
           <Col span={5}>
             <FormItem label="关键信息">
-              {getFieldDecorator('status')(
-                <Select placeholder="请选择">
-                  <Option value="0">关闭</Option>
-                  <Option value="1">运行中</Option>
-                </Select>
-              )}
+              {getFieldDecorator('searchkey')(<Input placeholder="关键信息" />)}
             </FormItem>
           </Col>
           <Col span={5}>
             <FormItem label="紧急程度">
-              {getFieldDecorator('status')(
+              {getFieldDecorator('urgencyType')(
                 <Select placeholder="请选择" style={{ width: '100%' }}>
-                  <Option value="0">关闭</Option>
-                  <Option value="1">运行中</Option>
+                  {urgencyTypes.map(urgencyType => {
+                    return (
+                      <Option key={urgencyType.value} value={urgencyType.value}>
+                        {urgencyType.title}
+                      </Option>
+                    );
+                  })}
                 </Select>
               )}
             </FormItem>
@@ -181,36 +199,33 @@ export default class WorkOrderMgr extends PureComponent {
         <Row gutter={10}>
           <Col span={5}>
             <FormItem label="建立者">
-              {getFieldDecorator('status')(
-                <Select placeholder="请选择">
-                  <Option value="0">关闭</Option>
-                  <Option value="1">运行中</Option>
-                </Select>
-              )}
+              {getFieldDecorator('creareUser')(<Input placeholder="建立者" />)}
             </FormItem>
           </Col>
-          <Col span={5}>
+          <Col span={6}>
             <FormItem label="建立时间">
-              {getFieldDecorator('status')(
-                <Select placeholder="请选择" style={{ width: '100%' }}>
-                  <Option value="0">关闭</Option>
-                  <Option value="1">运行中</Option>
-                </Select>
-              )}
+              {getFieldDecorator('createTimeRange')(<RangePicker />)}
             </FormItem>
           </Col>
           <Col span={5}>
             <FormItem label="临时角色">
-              {getFieldDecorator('status')(
-                <Select placeholder="请选择" style={{ width: '100%' }}>
-                  <Option value="0">关闭</Option>
-                  <Option value="1">运行中</Option>
+              {getFieldDecorator('tempRole')(
+                <Select>
+                  {currentUser &&
+                    currentUser.userRoles &&
+                    currentUser.userRoles.map(role => {
+                      return (
+                        <Option key={role.value} value={role.value}>
+                          {role.title}
+                        </Option>
+                      );
+                    })}
                 </Select>
               )}
             </FormItem>
           </Col>
           <Col span={2}>
-            <FormItem label="升序">{getFieldDecorator('queryDesc')(<Checkbox />)}</FormItem>
+            <FormItem label="升序">{getFieldDecorator('createTimeAsc')(<Checkbox />)}</FormItem>
           </Col>
           <Col span={5}>
             <span className={styles.submitButtons}>
@@ -239,7 +254,6 @@ export default class WorkOrderMgr extends PureComponent {
       {
         title: '紧急程度',
         dataIndex: 'urgencyType',
-        //sorter: true,
         render: val => <span>{val.name}</span>,
       },
       {
@@ -257,11 +271,6 @@ export default class WorkOrderMgr extends PureComponent {
         dataIndex: 'type',
         render: val => <span>{val.name}</span>,
       },
-      // {
-      //   title: '更新时间',
-      //   dataIndex: 'updateTime',
-      //   sorter: true,
-      // },
       {
         title: '工单说明',
         dataIndex: 'desc',
@@ -269,7 +278,6 @@ export default class WorkOrderMgr extends PureComponent {
       {
         title: '工单状态',
         dataIndex: 'status',
-        //sorter: true,
         render: val => <span>{val.name}</span>,
       },
       {
@@ -279,7 +287,6 @@ export default class WorkOrderMgr extends PureComponent {
       {
         title: '建立时间',
         dataIndex: 'createTime',
-        //sorter: true,
       },
       {
         title: '业务操作',
@@ -294,16 +301,16 @@ export default class WorkOrderMgr extends PureComponent {
       handleModalVisible: this.handleModalVisible,
     };
 
+    let { expandForm } = this.state;
     return (
       <PageHeaderLayout>
-        <Card bordered={false}>
+        <Card bordered={false} bodyStyle={{ padding: '8px' }}>
           <div className={styles.tableList}>
             <div className={styles.tableListForm}>{this.renderQueryForm()}</div>
             <div className={styles.tableListOperator}>
               <Row gutter={100}>
                 <Col span={12}>
                   <Button>全部</Button>
-                  <Button>新建</Button>
                   <Button>执行中</Button>
                   <Button>完成</Button>
                   <Button>结束</Button>
