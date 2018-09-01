@@ -61,7 +61,8 @@ const CreateForm = Form.create()(props => {
   );
 });
 
-@connect(({ loading, workorders, user }) => ({
+@connect(({ global, loading, workorders, user }) => ({
+  global,
   workorders,
   user,
   loading: loading.models.workorders,
@@ -157,9 +158,10 @@ export default class WorkOrderMgr extends PureComponent {
   renderQueryForm() {
     const {
       form,
-      workorders: { categories, urgencyTypes, userRoles },
+      global: { urgencyTypes, searchOrderTypes },
       user: { currentUser },
     } = this.props;
+    console.log(currentUser);
     const { getFieldDecorator } = form;
     return (
       <Form onSubmit={this.handleSearch}>
@@ -175,7 +177,7 @@ export default class WorkOrderMgr extends PureComponent {
                 <TreeSelect
                   dropdownStyle={{ maxHeight: 400, overflow: 'auto' }}
                   placeholder="请选择"
-                  treeData={categories}
+                  treeData={searchOrderTypes}
                   treeDefaultExpandAll
                 />
               )}
@@ -216,7 +218,7 @@ export default class WorkOrderMgr extends PureComponent {
           <Col span={5}>
             <FormItem label="临时角色">
               {getFieldDecorator('tempRole')(
-                <Select>
+                <Select placeholder="请选择">
                   {currentUser &&
                     currentUser.userRoles &&
                     currentUser.userRoles.map(role => {

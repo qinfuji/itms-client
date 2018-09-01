@@ -5,7 +5,7 @@ import styles from './style.less';
 import PageHeaderLayout from '../../layouts/PageHeaderLayout';
 
 @connect(({ global, loading }) => ({
-  categories: global.orderCategories,
+  categories: global.entryOrderTypes,
 }))
 export default class CreateOrderLayout extends React.Component {
   constructor(props) {
@@ -35,6 +35,7 @@ export default class CreateOrderLayout extends React.Component {
               dropdownStyle={{ maxHeight: 400, overflow: 'auto' }}
               treeDefaultExpandAll
               size="small"
+              treeCheckStrictly={true}
             />
           </Col>
         </Row>

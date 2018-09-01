@@ -22,6 +22,7 @@ const proxy = {
       avatar: 'https://gw.alipayobjects.com/zos/rmsportal/BiazfanxmamNRoxxVxka.png',
       userid: '00000001',
       notifyCount: 12,
+      userRoles: [{ value: 1, title: '1111' }, { value: 2, title: '222' }],
     },
   },
 
