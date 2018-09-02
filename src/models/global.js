@@ -136,6 +136,8 @@ export default {
     searchOrderTypes: [],
     //可以直接创建的工单
     entryOrderTypes: [],
+    orderTypes: orderTypes,
+    taskTypes: taskTypes,
     urgencyTypes: [
       { code: 1, title: '一般' },
       { code: 2, title: '平级' },
@@ -145,18 +147,20 @@ export default {
       { code: 6, title: '特提' },
     ],
     consumables: [{ code: 1, title: '打印纸' }, { id: 2, title: '硒鼓' }, { id: 3, title: '光盘' }],
-    device: [
+    devices: [
       { code: 1, title: '主机' },
       { code: 2, title: '硬盘' },
       { code: 3, title: '移动硬盘' },
       { code: 4, title: '打印机' },
       { code: 5, title: '传真机' },
     ],
-    application: [
+    applications: [
       { code: 1, title: '应用1' },
       { code: 2, title: '应用2' },
       { code: 3, title: '邮箱' },
     ],
+    departments: [{ code: 1, title: '办公厅' }, { code: 1, title: '研究室' }],
+    nationalitys: [{ code: 1, title: '汉族' }],
   },
 
   effects: {},
@@ -180,7 +184,6 @@ export default {
     setup({ dispatch, history }) {
       let entryOrderTypes = genEntryOrderTypes(orderTypes, categories);
       let searchOrderTypes = genSearchOrderTypes(orderTypes, categories);
-      console.log(searchOrderTypes);
       dispatch({
         type: 'setOrderSelectData',
         payload: { entryOrderTypes, searchOrderTypes },

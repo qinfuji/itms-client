@@ -2,7 +2,7 @@ import React, { PureComponent } from 'react';
 import { TreeSelect, Card, Row, Col } from 'antd';
 import { connect } from 'dva';
 import styles from './style.less';
-import PageHeaderLayout from '../../layouts/PageHeaderLayout';
+import EmployeeOrder from './employee/EmployeeOrder';
 
 @connect(({ global, loading }) => ({
   categories: global.entryOrderTypes,
@@ -18,7 +18,7 @@ export default class CreateOrderLayout extends React.Component {
   handCategoryChange = (value, label, extra) => {};
 
   render() {
-    let { categories, match } = this.props;
+    let { categories } = this.props;
     return (
       <Card bodyStyle={{ padding: 5 }}>
         <Row>
@@ -37,6 +37,13 @@ export default class CreateOrderLayout extends React.Component {
               size="small"
               treeCheckStrictly={true}
             />
+          </Col>
+        </Row>
+        <Row>
+          <Col>
+            <Card bodyStyle={{ padding: 5 }}>
+              <EmployeeOrder selectedOrderType="测试" />
+            </Card>
           </Col>
         </Row>
       </Card>

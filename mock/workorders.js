@@ -30,18 +30,18 @@ const workorders = [
     id: 123,
     urgencyType: { id: 1, name: '紧急' },
     orderNo: 'XXXXXXXXXXXXXX',
-    category: { id: 1, name: '人员类' },
+    category: { id: 100, name: '人员类' },
     type: { id: 1, name: '人员入职' },
     updateTime: '2017-01-01 00:00:00',
     desc: 'xxx入职',
     status: { id: 1, name: '完成' },
     createUser: '张三',
     createTime: '2017-01-01 00:00:00',
-    taskStatus: [
-      { id: 1, status: { id: 1, name: '完成' }, spendTime: 2, order: 1, type: 'telphone' },
-      { id: 1, status: { id: 1, name: '完成' }, spendTime: 2, order: 1, type: 'device' },
+    taskItemStatus: [
+      { id: 1, status: { id: 1, name: '完成' }, spendTime: 2, order: 1, type: 1 },
+      { id: 1, status: { id: 1, name: '完成' }, spendTime: 2, order: 1, type: 2 },
     ],
-    tasks: [{ id: 1, title: '' }],
+    tasks: [{ id: 1, title: '', code: 1 }],
   },
 ];
 
